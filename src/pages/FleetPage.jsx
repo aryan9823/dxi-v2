@@ -4,7 +4,8 @@ import { cn, fmtItems, formatCurrency, isToday, MILKMAN_ACCOUNTS, DAIRY_HQ, DELI
 import { readLocal, writeLocal, KEYS } from '../services/storage.js';
 
 function FleetPage({ orders, onAssignOrders }) {
-  const todayOrders    = (orders || []).filter(o => isToday(o.createdAt));
+  const safeOrders = Array.isArray(orders) ? orders : [];
+  const todayOrders    = safeOrders.filter(o => isToday(o.createdAt));
   const unassigned     = (todayOrders || []).filter(o => !o.assignedTo);
   const [locations, setLocations] = useState(() => readLocal(STORAGE_KEYS_MM.locations) || {});
   const [lastRefresh, setLastRefresh] = useState(new Date());

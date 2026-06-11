@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Card, Btn, Badge, Input, StatCard, EmptyState } from '../components/ui.jsx';
-import { cn, formatCurrency, formatDate, formatDateFull, isToday, CRATE_LIABILITY_PER, CRATE_STATUS_STYLES, safeArr } from '../utils.js';
+import { cn, formatCurrency, formatDate, formatDateFull, isToday, CRATE_LIABILITY_PER, CRATE_STATUS_STYLES, safeArr, STORAGE_KEYS } from '../utils.js';
 import { readLocal, writeLocal, KEYS } from '../services/storage.js';
 import { generateOTP, sendWhatsAppOTP } from '../services/whatsapp.js';
 
@@ -24,8 +24,9 @@ function genCrateId(existing) {
 
 function buildNewCrates(count, existing) {
   const arr = [];
-  let base = existing.length
-    ? Math.max(...existing.map(c => parseInt(((c.crateId || "").replace("CRATE-", ""), 10))).filter(n => !isNaN(n)), 0)
+  const safeExisting = Array.isArray(existing) ? existing : [];
+  let base = safeExisting.length
+    ? Math.max(...safeExisting.map(c => parseInt((c.crateId || "").replace("CRATE-", ""), 10)).filter(n => !isNaN(n)), 0)
     : 0;
   for (let i = 0; i < count; i++) {
     base++;
@@ -70,13 +71,14 @@ function CrateStatCard({ label, value, sub, color }) {
 }
 
 function CratesDashboard({ crates }) {
-  const total     = crates.length;
-  const available = (crates || []).filter(c => c.status === "AVAILABLE").length;
+  const safeCrates = Array.isArray(crates) ? crates : [];
+  const total     = safeCrates.length;
+  const available = safeCrates.filter(c => c.status === "AVAILABLE").length;
   const out       = (crates || []).filter(c => c.status === "OUT").length;
-  const returned  = (crates || []).filter(c => c.status === "RETURNED").length;
-  const lost      = (crates || []).filter(c => c.status === "LOST").length;
-  const damaged   = (crates || []).filter(c => c.status === "DAMAGED").length;
-  const retToday  = (crates || []).filter(c => c.status === "RETURNED" && c.returnedAt && isToday(c.returnedAt)).length;
+  const returned  = safeCrates.filter(c => c.status === "RETURNED").length;
+  const lost      = safeCrates.filter(c => c.status === "LOST").length;
+  const damaged   = safeCrates.filter(c => c.status === "DAMAGED").length;
+  const retToday  = safeCrates.filter(c => c.status === "RETURNED" && c.returnedAt && isToday(c.returnedAt)).length;
   const liability = out * CRATE_LIABILITY_PER;
 
   return (
@@ -95,7 +97,7 @@ function CratesDashboard({ crates }) {
         <p className="text-sm font-bold text-[#1A1A1A] mb-4">Customer Outstanding</p>
         {(() => {
           const map = {};
-          (crates || []).filter(c => c.status === "OUT" && c.customerName).forEach(c => {
+          safeCrates.filter(c => c.status === "OUT" && c.customerName).forEach(c => {
             if (!map[c.customerName]) map[c.customerName] = { count: 0, driver: c.driverName };
             map[c.customerName].count++;
           });
@@ -131,7 +133,7 @@ function CratesDashboard({ crates }) {
         <p className="text-sm font-bold text-[#1A1A1A] mb-4">Driver Summary</p>
         {(() => {
           const map = {};
-          (crates || []).filter(c => c.driverName).forEach(c => {
+          safeCrates.filter(c => c.driverName).forEach(c => {
             if (!map[c.driverName]) map[c.driverName] = { issued: 0, returned: 0, pending: 0 };
             if (c.status === "OUT")      { map[c.driverName].issued++;  map[c.driverName].pending++; }
             if (c.status === "RETURNED") { map[c.driverName].issued++;  map[c.driverName].returned++; }
@@ -552,11 +554,12 @@ function CratesPage({ crates, setCrates }) {
   const [histCrate, setHistCrate] = useState(null);
   const [damageModal, setDamageModal] = useState(null);
   const [damageRemark, setDamageRemark] = useState("");
+  const safeCrates = Array.isArray(crates) ? crates : [];
 
-  useEffect(() => { writeLocal(STORAGE_KEYS.crates, crates); }, [crates]);
+  useEffect(() => { writeLocal(STORAGE_KEYS.crates, safeCrates); }, [safeCrates]);
 
   const updateCrate = (id, patch, historyEvent) => {
-    setCrates(prev => (prev || []).map(c => {
+    setCrates(prev => (Array.isArray(prev) ? prev : []).map(c => {
       if (c.id !== id) return c;
       return {
         ...c,
@@ -572,13 +575,13 @@ function CratesPage({ crates, setCrates }) {
   };
 
   const handleReturn = (id) => {
-    const c = (crates || []).find(x => x.id === id);
+    const c = safeCrates.find(x => x.id === id);
     updateCrate(id, { status: "RETURNED", returnedAt: new Date().toISOString() },
       { event: "RETURNED", note: `Returned from ${c?.customerName || "customer"}` });
   };
 
   const handleMarkLost = (id) => {
-    const c = (crates || []).find(x => x.id === id);
+    const c = safeCrates.find(x => x.id === id);
     updateCrate(id, { status: "LOST", lostAt: new Date().toISOString() },
       { event: "LOST", note: `Marked lost (was with ${c?.customerName || "unknown"})` });
   };
@@ -594,7 +597,7 @@ function CratesPage({ crates, setCrates }) {
   };
 
   const handleGenerate = (newCrates) => {
-    setCrates(prev => [...prev, ...newCrates]);
+    setCrates(prev => [...(Array.isArray(prev) ? prev : []), ...(Array.isArray(newCrates) ? newCrates : [])]);
     setTab("registry");
   };
 
@@ -612,12 +615,12 @@ function CratesPage({ crates, setCrates }) {
       </div>
 
       {/* Content */}
-      {tab === "dashboard"  && <CratesDashboard crates={crates} />}
-      {tab === "registry"   && <CrateRegistry crates={crates} onMarkLost={handleMarkLost} onMarkDamaged={handleMarkDamaged} onViewHistory={setHistCrate} />}
-      {tab === "issue"      && <IssueCrate crates={crates} onIssue={handleIssue} />}
-      {tab === "return"     && <ReturnCrate crates={crates} onReturn={handleReturn} />}
-      {tab === "generate"   && <GenerateQR crates={crates} onGenerate={handleGenerate} />}
-      {tab === "liability"  && <LiabilityReport crates={crates} />}
+      {tab === "dashboard"  && <CratesDashboard crates={safeCrates} />}
+      {tab === "registry"   && <CrateRegistry crates={safeCrates} onMarkLost={handleMarkLost} onMarkDamaged={handleMarkDamaged} onViewHistory={setHistCrate} />}
+      {tab === "issue"      && <IssueCrate crates={safeCrates} onIssue={handleIssue} />}
+      {tab === "return"     && <ReturnCrate crates={safeCrates} onReturn={handleReturn} />}
+      {tab === "generate"   && <GenerateQR crates={safeCrates} onGenerate={handleGenerate} />}
+      {tab === "liability"  && <LiabilityReport crates={safeCrates} />}
 
       {/* History modal */}
       {histCrate && <CrateHistoryModal crate={histCrate} onClose={() => setHistCrate(null)} />}

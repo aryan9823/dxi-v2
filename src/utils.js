@@ -143,7 +143,7 @@ export function farmerSummary(f) {
     : Array.isArray(f?.collections)
       ? f.collections
       : [];
-  const monthEntries = entries.filter((entry) => isThisMonth(entry?.date));
+  const monthEntries = safeArr(entries).filter((entry) => isThisMonth(entry?.date));
   const totalLitres = monthEntries.reduce(
     (sum, entry) => sum + (Number(entry?.totalLitres) || Number(entry?.litres) || Number(entry?.morningLitres || 0) + Number(entry?.eveningLitres || 0)),
     0,
@@ -219,7 +219,8 @@ export function slugify(t) {
 }
 
 export function sortByLatest(arr, k = "createdAt") {
-  return [...arr].sort((a, b) => new Date(b[k]) - new Date(a[k]));
+  const list = Array.isArray(arr) ? arr : [];
+  return [...list].sort((a, b) => new Date(b?.[k] || 0) - new Date(a?.[k] || 0));
 }
 
 export function toNum(v) {

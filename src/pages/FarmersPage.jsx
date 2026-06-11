@@ -4,7 +4,8 @@ import { FarmerForm } from './OrdersPage.jsx';
 import { cn, formatCompact, formatCurrency, formatDate, formatLitres, farmerSummary, sumBy } from '../utils.js';
 
 function FarmersPage({ farmers, onAddFarmer }) {
-  const sums = (farmers || []).map(f => ({ ...f, summary: farmerSummary(f) }));
+  const safeFarmers = Array.isArray(farmers) ? farmers : [];
+  const sums = safeFarmers.map(f => ({ ...f, summary: farmerSummary(f) }));
   const [sel, setSel] = useState(sums[0] ? sums[0].id : "");
   useEffect(() => { if (!sel && sums[0]) setSel(sums[0].id); }, [sel, sums]);
   const selected = (sums || []).find(f => f.id === sel) || sums[0] || null;
@@ -24,7 +25,7 @@ function FarmersPage({ farmers, onAddFarmer }) {
         <Card className="p-5">
           <p className="text-base font-bold text-[#1A1A1A] mb-4">Collection Overview</p>
           <div className="space-y-3">
-            <div className="rounded-xl bg-[#1A1A1A] p-4 text-white"><p className="text-xs text-white/40 mb-1">Total farmers</p><p className="text-2xl font-black">{farmers.length}</p></div>
+            <div className="rounded-xl bg-[#1A1A1A] p-4 text-white"><p className="text-xs text-white/40 mb-1">Total farmers</p><p className="text-2xl font-black">{safeFarmers.length}</p></div>
             <div className="rounded-xl bg-[#FAF8F5] border border-[#E8E2D9] p-4"><p className="text-xs text-[#999] mb-1">This month's milk</p><p className="text-2xl font-black text-[#1A1A1A]">{formatLitres(monthL)}</p></div>
             <div className="rounded-xl bg-emerald-50 p-4"><p className="text-xs text-emerald-600 mb-1">Estimated payout</p><p className="text-2xl font-black text-emerald-700">{formatCompact(monthP)}</p></div>
           </div>
@@ -35,7 +36,7 @@ function FarmersPage({ farmers, onAddFarmer }) {
         <Card className="p-5">
           <div className="flex items-center justify-between mb-5">
             <p className="text-base font-bold text-[#1A1A1A]">Farmer List</p>
-            <Badge label={`${farmers.length} farmers`} tone="bg-[#F0EDE8] text-[#8B7355]" />
+            <Badge label={`${safeFarmers.length} farmers`} tone="bg-[#F0EDE8] text-[#8B7355]" />
           </div>
           <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
             <div className="space-y-2 max-h-[32rem] overflow-y-auto pr-1">
