@@ -1,0 +1,59 @@
+
+> dxi-dairy@2.0.0 dev
+> vite --host 127.0.0.1 --port 5173
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m714[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+[2m5:03:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:03:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LandingPage.jsx, /src/index.css[22m
+[2m5:03:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/DashboardPage.jsx, /src/index.css[22m
+[2m5:10:18 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.jsx, /src/pages/LoginPage.jsx, /src/pages/FarmersPage.jsx, /src/pages/CreditPage.jsx, /src/components/AppShell.jsx, /src/pages/DashboardPage.jsx, /src/pages/WhatsAppPage.jsx, /src/pages/LandingPage.jsx, /src/pages/DeliveryPage.jsx, /src/pages/OrdersPage.jsx, /src/pages/MilkmanPortal.jsx, /src/pages/FleetPage.jsx, /src/pages/MilkmanLoginPage.jsx, /src/pages/CratesPage.jsx, /src/components/ui.jsx[22m
+[2m5:10:50 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OrdersPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/FarmersPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/CreditPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/DeliveryPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/FleetPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/MilkmanLoginPage.jsx, /src/index.css[22m
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/pages/OrdersPage.jsx[22m Could not Fast Refresh (new export)
+[2m5:10:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.jsx, /src/pages/FarmersPage.jsx[22m
+[2m5:24:43 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:24:45 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:25:50 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:26:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:26:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:26:21 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:26:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:27:05 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:27:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m5:35:42 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:57:47 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.jsx[22m
+[2m5:58:28 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.jsx[22m
+[2m6:02:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.fixed.jsx[22m
+[2m6:02:17 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:02:18 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:05:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.jsx, /src/index.css[22m
+[2m6:05:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LandingPage.jsx, /src/index.css[22m
+[2m6:05:22 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:05:23 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:08:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LandingPage.jsx, /src/index.css[22m
+[2m6:08:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.jsx, /src/index.css[22m
+[2m6:08:59 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.jsx, /src/index.css[22m
+[2m6:09:06 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.jsx, /src/index.css[22m
+[2m6:09:10 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:09:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:09:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:10:02 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:10:12 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:10:55 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:11:49 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:11:50 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:15:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.fixed.jsx, /src/index.css[22m
+[2m6:15:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:15:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:15:52 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.jsx[22m
+[2m6:16:03 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:16:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/index.html[22m
+[2m6:17:39 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.jsx[22m
